@@ -5,9 +5,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'saep_db',
-    charset: 'utf8mb4',
-    dateStrings: true   // datas voltam como texto (ex: 2026-11-10)
+    database: 'Piscina',
 });
 
 connection.connect((erro) => {
