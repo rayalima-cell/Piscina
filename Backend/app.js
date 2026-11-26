@@ -7,49 +7,5 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
+const Senha = 'senha123';
 const port = 3025;
-
-server.get("/responsaveis", (req, res) =>{
-    const sql = 'SELECT * FROM Responsavel';
-
-    connection.query(sql, (erro, resultados) => {
-        if(erro){
-            console.log('Erro ao buscar responsavel: ', erro);
-            res.status(500).send('Erro ao buscar responsavel');
-            return;
-        }
-        res.send(resultados);
-    });
-});
-
-server.get("/responsaveis/:id", (req, res) => {
-    const id = req.params.id;
-    const sql = 'SELECT * FROM Responsavel WHERE idResponsavel = ?';
-    
-    connection.query(sql, [id], (erro, resultados) => {
-        if(erro){
-            console.log('Erro ao buscar responsavel: ', erro);
-            res.status(500).send('Erro ao buscar responsavel');
-            return;
-        }
-        return res.send(resultados);
-    });
-});
-
-server.get("/responsaveis/busca/:nome", (req, res) =>{
-    const nome = req.params.nome;
-    const sql = 'SELECT * FROM Responsavel WHERE nome = ?';
-
-    connection.query(sql, [nome], (erro, resultados) => {
-        if(erro){
-            console.log('Erro ao buscar responsavel: ', erro);
-            res.status(500).send('Erro ao buscar responsavel');
-            return;
-        }
-        return res.send(resultados);
-    });
-});
-
-server.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`);
-});
