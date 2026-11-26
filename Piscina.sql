@@ -11,27 +11,28 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Piscina` DEFAULT CHARACTER SET utf8 ;
-USE `Piscina` ;
+CREATE SCHEMA IF NOT EXISTS `PISCINA` DEFAULT CHARACTER SET utf8 ;
+USE `PISCINA` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Responsavel`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Piscina`.`Responsavel` (
-  `idResponsavel` INT auto_increment NOT NULL,
+CREATE TABLE IF NOT EXISTS `PISCINA`.`Responsavel` (
+  `idResponsavel` INT NOT NULL,
   `nome` VARCHAR(45) NULL,
-  `CPF` VARCHAR(45) NULL,
+  `CPF` VARBINARY(255) NULL,
   `Email` VARCHAR(45) NULL,
   `Telefone` VARCHAR(45) NULL,
-  PRIMARY KEY (`idResponsavel`))
+  PRIMARY KEY (`idResponsavel`),
+  UNIQUE INDEX `CPF_UNIQUE` (`CPF` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Filhos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Piscina`.`Filhos` (
-  `idFilhos` INT auto_increment NOT NULL,
+CREATE TABLE IF NOT EXISTS `PISCINA`.`Filhos` (
+  `idFilhos` INT NOT NULL,
   `Nome` VARCHAR(45) NULL,
   `data_nascimento` VARCHAR(45) NULL,
   `nive_natacao` VARCHAR(45) NULL,
@@ -49,8 +50,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Aula`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `piscina`.`Aula` (
-  `idAula` INT  auto_increment NOT NULL,
+CREATE TABLE IF NOT EXISTS `PISCINA`.`Aula` (
+  `idAula` INT NOT NULL,
   `nome_professor` VARCHAR(45) NULL,
   `data_horario` VARCHAR(45) NULL,
   `Filhos_idFilhos` INT NOT NULL,
@@ -67,35 +68,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Usuarios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `piscina`.`Usuarios` (
-  `idUsuarios` INT  auto_increment NOT NULL,
-  `login` VARCHAR(45) NULL,
+CREATE TABLE IF NOT EXISTS `PISCINA`.`Usuarios` (
+  `idUsuarios` INT NOT NULL,
+  `login` VARCHAR(100) NULL,
   `nome` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
+  `senha` VARCHAR(64) NULL,
   PRIMARY KEY (`idUsuarios`))
 ENGINE = InnoDB;
-
-INSERT INTO Responsavel(nome, CPF, Email, Telefone) VALUES 
-('Helena Souza','111.222.333-44', 'helena@email.com', '(48) 999990001'), 
-('Igor Martins','222.333.444-55', 'igor@email.com', '(48) 999990002'), 
-('Joana Lima',  '333.444.555-66', 'joana@email.com', '(48) 999990003');
-
-select * from Responsavel;
-
-INSERT INTO Filhos(Nome, data_nascimento, nive_natacao, Responsavel_idResponsavel) VALUES 
-('Marina', '12-06-2008', 'Não sabe nada', 1),
-('Tiego', '14-04-2009', 'Sabe nada mais é muito pouco', 2),
-('Isabela', '16-09-2009', 'Sabe nada mais é muito pouco', 3);
-
-select * from Filhos;
-
-INSERT INTO Aula(nome_professor, data_horario, Filhos_idFilhos) VALUES 
-('Miriã', '2026-11-18 09:00:00', 1),
-('Gabriel', '2026-11-18 13:00:00', 2),
-('Julia', '2026-11-18 14:00:00', 3);
-
-select * from Aula;
-
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -22,6 +22,34 @@ server.get("/responsaveis", (req, res) =>{
     });
 });
 
+server.get("/responsaveis/:id", (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM Responsavel WHERE idResponsavel = ?';
+    
+    connection.query(sql, [id], (erro, resultados) => {
+        if(erro){
+            console.log('Erro ao buscar responsavel: ', erro);
+            res.status(500).send('Erro ao buscar responsavel');
+            return;
+        }
+        return res.send(resultados);
+    });
+});
+
+server.get("/responsaveis/busca/:nome", (req, res) =>{
+    const nome = req.params.nome;
+    const sql = 'SELECT * FROM Responsavel WHERE nome = ?';
+
+    connection.query(sql, [nome], (erro, resultados) => {
+        if(erro){
+            console.log('Erro ao buscar responsavel: ', erro);
+            res.status(500).send('Erro ao buscar responsavel');
+            return;
+        }
+        return res.send(resultados);
+    });
+});
+
 server.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 });
